@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.13"
 dependencies = [
-    "pydantic-ai-slim[openai,mcp]>=0.4.11",
+    "pydantic-ai-slim[logfire,mcp,openai]>=0.4.11",
     "pydantic-settings>=2.10.1",
     "streamlit>=1.47.1",
 ]
