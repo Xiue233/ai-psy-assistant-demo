@@ -113,12 +113,11 @@ def process_psy_assistant_history(ctx: AssistantContext, messages: list[ModelMes
     # 避免过长上下文，只保留最近7条
     messages = messages[-7:] if len(messages) > 7 else messages
     # 聊天状态判断
-    if len(messages) // 2 >= 1:
-        cur_state = ctx.deps.consult_state
-        next_state = ctx.deps.consult_state = run_judge_agent(messages, ctx.deps)
-        if cur_state != next_state:
-            ctx.deps.state_history.append(cur_state)
-            ctx.deps.consult_state = next_state
+    cur_state = ctx.deps.consult_state
+    next_state = ctx.deps.consult_state = run_judge_agent(messages, ctx.deps)
+    if cur_state != next_state:
+        ctx.deps.state_history.append(cur_state)
+        ctx.deps.consult_state = next_state
     return messages
 
 
