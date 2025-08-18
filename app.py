@@ -25,6 +25,27 @@ with st.sidebar:
     st.markdown(f"- {'\n- '.join([s.value for s in st.session_state.assistant_deps.state_history])}" if len(
         st.session_state.assistant_deps.state_history) > 0 else "无")
 
+    # 新增用户信息编辑区域
+    st.subheader("用户信息")
+    name = st.text_input("姓名", value=st.session_state.assistant_deps.user_info["name"])
+    age = st.number_input("年龄", value=int(st.session_state.assistant_deps.user_info["age"]), min_value=0,
+                          max_value=150)
+    gender = st.selectbox("性别", ["男", "女"],
+                          index=0 if st.session_state.assistant_deps.user_info["gender"] == "男" else 1)
+    occupation = st.text_input("职业", value=st.session_state.assistant_deps.user_info["occupation"])
+    education = st.text_input("学历", value=st.session_state.assistant_deps.user_info["education"])
+    medical_history = st.text_area("医疗史", value=st.session_state.assistant_deps.user_info["medical_history"])
+
+    # 实时更新用户信息（改为直接赋值避免可变性问题）
+    st.session_state.assistant_deps.user_info = {
+        "name": name,
+        "age": str(age),
+        "gender": gender,
+        "occupation": occupation,
+        "education": education,
+        "medical_history": medical_history
+    }
+
 chat_container = st.container()
 
 # render chat history
